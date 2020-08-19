@@ -84,8 +84,7 @@ subtrees:
 ```
 
 Subcommands
-___________
-
+-----------
 
 ### `git pq status`
 
