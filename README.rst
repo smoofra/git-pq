@@ -103,7 +103,7 @@ Re-create the patches for a subtree based on the changes made to that subtree's 
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 Verify that the patches applied to the base match the content of the subtree.
 
-``git pq init --base BASE --patches PATCHES SUBTREE```
+``git pq init --base BASE --patches PATCHES SUBTREE``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Create a new subtree at SUBTREE, based on the tag BASE, with patches directory PATCHES.
 This will modify ``.git-pq``,  and also ``git add .git-pq`` if it has not yet been added to 
