@@ -8,14 +8,17 @@ of another, like ``git-submodule`` or ``git-subtree``.
 At the same time it is a tool for maintaining a patch queue, like ``quilt`` or ``stg`` 
 (Stacked Git).
 
-It is like `git-subtree`, in that the contents of the sub-repository is included directly
+It is like ``git-subtree``, in that the contents of the sub-repository is included directly
 as ordinary git-traced subdirectory in the contents of the super-repository.   Users that just 
 want to check out the code and build it do not even need to know this tool exists.   
 
-``git-pq`` is like ``quilt`` or ``stg`` in that it encourages a workflow based around a patch queue, 
+``git-pq`` is like ``quilt`` or ``stg`` in that it supports a workflow based around a patch queue, 
 rather than a workflow based on merges.   Unlike ``quilt`` or ``stg``, there are no new 
 commands for manipulating the patch queue.    Instead, you use ordinary git commands:  ``git commit`` 
 to add a patch,  ``git rebase -i`` to reorder or combine patches, etc.
+
+``git-pq`` stores the patch queue for each subdirectory as a simple directory full of patch files, 
+which are also tracked by git as ordinary files.
 
 
 Synopsis
