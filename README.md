@@ -74,7 +74,7 @@ the patch files and the changes made to the subtree to the main branch.
 Files
 -----
 
-Each subtree tracked by this tool is recorded in a yaml at the root of the repo file called `./.git-pq`.
+Each subtree tracked by this tool is recorded in a yaml file at the root of the repo file called `./.git-pq`.
 
 ```
 subtrees:
