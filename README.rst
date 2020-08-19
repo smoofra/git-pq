@@ -23,7 +23,7 @@ Synopsis
 
 .. code-block::
 
-  $ git https://github.com/python/cpython.git v3.8.2
+  $ git fetch https://github.com/python/cpython.git v3.8.2
   $ git tag python-3.8.2 FETCH_HEAD
   $ git pq init --base python-3.8.2 --patches patches python
   $ git commit
