@@ -11,7 +11,7 @@ At the same time it is a tool for maintaining a patch queue, like `quilt` or `st
 (Stacked Git).
 
 It is like `git-subtree`, in that the contents of the sub-repository is included directly
-as ordinary git-traced subdirectory in the contents of the super-repository.   Users that just
+as ordinary git-tracked subdirectory in the contents of the super-repository.   Users that just
 want to check out the code and build it do not even need to know this tool exists.
 
 `git-pq` is like `quilt` or `stg` in that it supports a workflow based around a patch queue,
