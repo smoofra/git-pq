@@ -58,7 +58,7 @@ Description
 `git-pq` is built on `git-worktree`.   You should read the documentation for that
 command continuing to read this.
 
-The main idea of `git-pq` is that it is possible to create `overlapping` git worktrees.
+The main idea of `git-pq` is that it is possible to create *overlapping* git worktrees.
 
 In the example above the command `git pq edit Python` does two things.
 
