@@ -2,7 +2,7 @@
 git-pq
 ======
 
-``git-pq`` is a yet another tool to mange including one git repo as a subdirectory 
+``git-pq`` is a yet another tool for including one git repo as a subdirectory 
 of another, like ``git-submodule`` or ``git-subtree``.
 
 At the same time it is a tool for maintaining a patch queue, like ``quilt`` or ``stg`` 
