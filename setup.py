@@ -2,7 +2,7 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
 
 requirements = ["pyyaml", "gitpython"]
@@ -18,8 +18,9 @@ setup(
     },
     install_requires=requirements,
     long_description=readme,
+    long_description_content_type='text/markdown',
     include_package_data=True,
     name='git-pq',
     py_modules=['gitpq'],
-    version='0.9',
+    version='0.9.1',
 )
