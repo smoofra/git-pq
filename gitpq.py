@@ -276,7 +276,7 @@ class Repo(git.Repo):
         patches = relpath_nodots(patches, start=self.working_dir)
 
         self.git.read_tree('--prefix='+path, base)
-        self.git.checkout('--', path)
+        self.git.checkout('--', os.path.join(self.working_dir, path))
 
         config = self.read_pq_config()
         if not 'subtrees' in config:
