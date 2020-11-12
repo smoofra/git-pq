@@ -14,7 +14,7 @@ import git   #gitpython
 
 def relpath_nodots(path, start):
     ret = os.path.relpath(path, start)
-    if any(x == '.' or x == '..' for x in os.path.split(ret)):
+    if any(x == '.' or x == '..' for x in ret.split(os.path.sep)):
         raise OSError("relative path has dots in it")
     return ret
 
@@ -85,7 +85,10 @@ class Repo(git.Repo):
         for stanza in out.split('\n\n'):
             def pairs():
                 for line in stanza.strip().split("\n"):
-                    yield line.split(" ", 1)
+                    if line.strip() == 'detached':
+                        yield ['branch', None]
+                    else:
+                        yield line.split(" ", 1)
             yield Worktree(pairs())
 
     def main_worktree(self):
@@ -103,6 +106,9 @@ class Repo(git.Repo):
     def is_worktree(self, path):
         return self.get_worktree(path) is not None
 
+    def iter_patches(self, patchdir):
+        return sorted(glob.glob(os.path.join(os.path.abspath(patchdir), "*.patch")))
+
     def apply_patches_keep_tree(self, patchdir, base, name):
         restype = namedtuple('AppliedPatches', ['worktree', 'branch', 'git_dir'])
 
@@ -113,7 +119,7 @@ class Repo(git.Repo):
         try:
             self.git.worktree('add', '-b', temp_branch, temp, base)
             temp_repo = Repo(temp)
-            patches = list(sorted(glob.glob(os.path.join(os.path.abspath(patchdir), "*.patch"))))
+            patches = list(self.iter_patches(patchdir))
             if patches:
                 temp_repo.git.am('--whitespace=nowarn', '--quiet', *patches)
             return restype(temp, temp_branch, temp_repo.git_dir)
@@ -258,6 +264,10 @@ class Repo(git.Repo):
                 pr(f"There are unstaged changes (in the worktree) at {subtree.uipath}")
             if wt.index.diff('HEAD'):
                 pr(f'There are changes staged (in the worktree) at {subtree.uipath}')
+        for patch in self.iter_patches(subtree.patches_path):
+            patch = relpath_nodots(patch, self.working_dir)
+            if (patch,0) not in self.index.entries:
+                pr("patch not added to index:", patch)
         applied = self.apply_patches(subtree.patches_path, subtree.base)
         if self.rev_parse("HEAD:"+subtree.relpath).diff(applied):
             pr(f"❌ Subtree at {subtree.uipath} does not match patches")
@@ -287,7 +297,7 @@ class Repo(git.Repo):
             'base': base
         })
         self.write_pq_config(config)
-        if not self.pq_config_file_basename in self.index.entries:
+        if not (self.pq_config_file_basename,0) in self.index.entries:
             self.git.add(self.pq_config_file)
 
 
