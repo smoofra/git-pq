@@ -231,7 +231,7 @@ class Repo(git.Repo):
             return
         for patch in glob.glob(os.path.join(subtree.patches_path, "*.patch")):
             os.unlink(patch)
-        self.git.format_patch('--no-numbered', '-o', subtree.patches_path, '^'+subtree.base, subtree.worktree.branch)
+        self.git.format_patch('--binary', '--full-index', '--no-numbered', '-o', subtree.patches_path, '^'+subtree.base, subtree.worktree.branch)
 
         for patch in glob.glob(os.path.join(subtree.patches_path, "*.patch")):
             with open (patch, "r+") as f:
@@ -243,9 +243,13 @@ class Repo(git.Repo):
                 if lines[-2].rstrip() == '--' and re.match('\d+\.\d+', lines[-1]):
                     lines.pop()
                     lines.pop()
+                skip : tuple = ('From ', 'Message-Id: ', 'In-Reply-To: ', 'References: ')
+                if not 'GIT binary patch\n' in lines:
+                    # git-am will refuse to apply binary patch without the index lines
+                    skip += ('index ',)
                 for line in lines:
                     assert line.endswith('\n')
-                    if not any(line.startswith(x) for x in ('index ', 'From ', 'Message-Id: ', 'In-Reply-To: ', 'References: ')):
+                    if not any(line.startswith(x) for x in skip):
                         f.write(line)
 
     def verify_pq(self, subtree, out=sys.stdout):
