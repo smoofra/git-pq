@@ -56,7 +56,7 @@ Description
 -----------
 
 `git-pq` is built on `git-worktree`.   You should read the documentation for that
-command continuing to read this.
+command before continuing to read this.
 
 The main idea of `git-pq` is that it is possible to create *overlapping* git worktrees.
 
