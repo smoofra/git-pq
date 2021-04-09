@@ -65,7 +65,7 @@ In the example above the command `git pq edit Python` does two things.
 * It creates a new branch called `pq-Python`, which is the result of applying `patches/*.patch` to the tag `python-3.8.2`
 * It creates a new worktree rooted at `./Python`, (inside the current worktree!) with branch `pq-Python`
 
-To edit the patchquee, you simple cd into `./Python` and add or remove commits to the `pq-Python` branch using
+To edit the patchquee, you simply cd into `./Python` and add or remove commits to the `pq-Python` branch using
 ordinary git commands.
 
 Then, when you are satisfied with the branch, use `git pq refresh` to update the patch files, and commit both
